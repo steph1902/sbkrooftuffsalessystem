@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Shop;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth; // Add this line
+use App\Models\Visit;
 
 
 class HomeController extends Controller
@@ -68,12 +69,34 @@ class HomeController extends Controller
             ->select('shop.*')
             ->get();
 
+        // $visitedShops = DB::table('sales_visit')
+        //     ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
+        //     ->where('sales_visit.sales_id', $userId)
+        //     ->select('sales_visit.*')
+        //     ->get();
+
+        $visitedShops = DB::table('sales_visit')
+        ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
+        ->where('sales_visit.sales_id', $userId)
+        ->select('sales_visit.*', 'shop.shop_name', 'shop.shop_address', 'shop.shop_region', 'shop.shop_city', 'shop.shop_district', 'shop.shop_subdistrict', 'shop.shop_googlemaps_coord', 'shop.shop_uuid')
+        ->get();
+
+
+        // dd($visitedShops);
+
+
+
+        // $visited = Visit::findOrFail($userId);
+            // You can add any additional logic or data retrieval here
+    
+            // return view('visits.show', compact('visited'));
+
 
 
             // dd($assignedShops);
 
         
     
-        return view('home', compact('sales', 'assignedShops'));        
+        return view('home', compact('sales', 'assignedShops','visitedShops'));        
     }
 }

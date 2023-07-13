@@ -7,9 +7,8 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SalesAuthController;
 use App\Models\User;
 use App\Http\Controllers\VisitController;
-
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SuperAdminController;
+// use App\Http\Controllers\SuperAdminController;
 
 
 
@@ -41,16 +40,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Superadmin routes
-Route::middleware(['auth', 'role:' . User::ROLE_SUPERADMIN])->group(function () {
-    Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
-    // Define other superadmin routes
-});
+// Route::middleware(['auth', 'role:' . User::ROLE_SUPERADMIN])->group(function () {
+//     Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
+//     // Define other superadmin routes
+// });
 
 // Sales routes
-Route::middleware(['auth', 'role:' . User::ROLE_SALES])->group(function () {
-    Route::get('/sales/dashboard', [SalesController::class, 'dashboard'])->name('sales.dashboard');
-    // Define other sales routes
-});
+// Route::middleware(['auth', 'role:' . User::ROLE_SALES])->group(function () {
+//     Route::get('/sales/dashboard', [SalesController::class, 'dashboard'])->name('sales.dashboard');
+//     // Define other sales routes
+// });
 
 // Authentication routes
 // Auth::routes();
@@ -72,7 +71,9 @@ Route::get('/search-shops', [SalesController::class, 'searchShops'])->name('sear
 
 
 // Route for viewing a shop's details
-Route::get('/shops/{id}', 'ShopController@show')->name('shops.show');
+// Route::get('/shops/{id}', 'ShopController@show')->name('shops.show');
+Route::get('/shops/{id}', [ShopController::class, 'show'])->name('shops.details');
+
 
 // Routes for submitting a visit to a shop
 // Route::get('/shops/{id}/visits/create', 'VisitController@create')->name('visits.create');
@@ -83,8 +84,28 @@ Route::get('/shops/{id}', 'ShopController@show')->name('shops.show');
 // Routes for submitting a visit to a shop
 Route::get('/shops/{id}/visits/create', [VisitController::class, 'create'])->name('visits.create');
 Route::post('/shops/{id}/visits', [VisitController::class, 'store'])->name('visits.store');
+// Route::get('visits/{id}', [VisitController::class, 'show'])->name('visits.show');
+// Route::get('visits/{id}', [VisitController::class, 'show'])
+//     ->where('id', '.*') 
+//     ->name('visits.show');
+
+Route::get('visits/{location}', [VisitController::class, 'show'])
+    ->name('visits.show');
 
 
+
+
+
+
+
+Route::get('/optimize', function () {
+    $output = [];
+    $returnVar = null;
+    exec('php artisan optimize', $output, $returnVar);
+    
+    // Debugging output
+    dd($output, $returnVar);
+});
 
 
 
@@ -161,3 +182,9 @@ Route::post('/shops/{id}/visits', [VisitController::class, 'store'])->name('visi
 // - foto toko depan 100kb
 // - watermark foto tanggal, waktu, lokasi
 // - foto toko tampak depan (sifatnya update)
+
+
+
+
+// - sticker mobil
+// - sample renceng
