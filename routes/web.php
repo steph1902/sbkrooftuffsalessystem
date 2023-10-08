@@ -8,6 +8,9 @@ use App\Http\Controllers\SalesAuthController;
 use App\Models\User;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\PasswordGenerationController;
+
 // use App\Http\Controllers\SuperAdminController;
 
 
@@ -39,26 +42,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-// Superadmin routes
-// Route::middleware(['auth', 'role:' . User::ROLE_SUPERADMIN])->group(function () {
-//     Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
-//     // Define other superadmin routes
-// });
-
-// Sales routes
-// Route::middleware(['auth', 'role:' . User::ROLE_SALES])->group(function () {
-//     Route::get('/sales/dashboard', [SalesController::class, 'dashboard'])->name('sales.dashboard');
-//     // Define other sales routes
-// });
-
-// Authentication routes
-// Auth::routes();
-
-// Route::middleware('auth')->group(function () {
-    // Protected routes here
-// });
-
-
 
 
 
@@ -68,44 +51,30 @@ Route::get('/search-shops', [SalesController::class, 'searchShops'])->name('sear
 
 
 
-
-
-// Route for viewing a shop's details
-// Route::get('/shops/{id}', 'ShopController@show')->name('shops.show');
 Route::get('/shops/{id}', [ShopController::class, 'show'])->name('shops.details');
 
 
-// Routes for submitting a visit to a shop
-// Route::get('/shops/{id}/visits/create', 'VisitController@create')->name('visits.create');
-// Route::post('/shops/{id}/visits', 'VisitController@store')->name('visits.store');
-
-// use App\Http\Controllers\VisitController;
-
-// Routes for submitting a visit to a shop
 Route::get('/shops/{id}/visits/create', [VisitController::class, 'create'])->name('visits.create');
 Route::post('/shops/{id}/visits', [VisitController::class, 'store'])->name('visits.store');
-// Route::get('visits/{id}', [VisitController::class, 'show'])->name('visits.show');
-// Route::get('visits/{id}', [VisitController::class, 'show'])
-//     ->where('id', '.*') 
-//     ->name('visits.show');
+
 
 Route::get('visits/{location}', [VisitController::class, 'show'])
     ->name('visits.show');
 
 
+// Route::get('/report/{token}', [ReportController::class, 'index'])->name('report.index');
+Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+Route::get('/report/export', [ReportController::class, 'export'])->name('report.export');
+
+
+
+// Route::get('/sales-passwords', 'PasswordGenerationController@showSalesPasswords');
+Route::get('/generate-sales-passwords', [PasswordGenerationController::class, 'generatePasswords']);
+Route::get('/sales-passwords', [PasswordGenerationController::class, 'showSalesPasswords']);
 
 
 
 
-
-Route::get('/optimize', function () {
-    $output = [];
-    $returnVar = null;
-    exec('php artisan optimize', $output, $returnVar);
-    
-    // Debugging output
-    dd($output, $returnVar);
-});
 
 
 

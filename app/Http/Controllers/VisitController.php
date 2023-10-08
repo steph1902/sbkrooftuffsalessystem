@@ -135,7 +135,7 @@ class VisitController extends Controller
         
     
         $visit->save();
-        dd('success');
+        // dd('success');
         // return redirect()->route('shop.details', $visit->shop_id)->with('success', 'Visit recorded successfully.');
 
     
