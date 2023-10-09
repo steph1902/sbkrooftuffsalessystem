@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('home') }}">Go back to home</a>
+                    <a href="{{ route('home') }}">Kembali ke beranda</a>
                 </div>
             </div>
         </div>
@@ -24,17 +24,17 @@
                 <div class="card-header">{{ __('Shop Details') }}</div>
                 <div class="card-body">
                     <h2>{{ $visit->shop_name }}</h2>
-                    <p>Visit Date: <b>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y H:i') }}</b></p> <br>
-                    <p>Address: {{ $visit->shop_address }}</p>
-                    <p>Region: {{ $visit->shop_region }}</p>
-                    <p>City: {{ $visit->shop_city }}</p>
-                    <p>District: {{ $visit->shop_district }}</p>
-                    <p>Subdistrict: {{ $visit->shop_subdistrict }}</p>
+                    <p>Tanggal visit: <b>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y H:i') }}</b></p> <br>
+                    <p>Alamat: {{ $visit->shop_address }}</p>
+                    <p>Provinsi: {{ $visit->provinsi }}</p>
+                    <p>Kotak: {{ $visit->kota }}</p>
+                    <p>Kecamatan: {{ $visit->kecamatan }}</p>
+                    <p>Kelurahan: {{ $visit->kelurahan }}</p>
 
-                    <h2>Visit Details</h2>
-                    <p>Location: {{ $visit->location }}</p>
-                    <p>Notes: {{ $visit->notes }}</p>
-                    <p>Materials: {{ $visit->materials }}</p>
+                    <h2>Informasi visit:</h2>
+                    <p>Lokasi: {{ $visit->location }}</p>
+                    <p>Catatan: {{ $visit->notes }}</p>
+                    <p>Material: {{ $visit->materials }}</p>
 
                     @if ($visit->photo)
                         <p>Photo Toko Depan:</p>

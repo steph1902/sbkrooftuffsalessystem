@@ -1,82 +1,93 @@
-@extends('layouts.app')
+@extends('layouts.table')
 @section('content')
 
-<style>
-    .pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        list-style: none;
-    }
 
-    .pagination li {
-        margin: 0 5px;
-        display: flex;
-        align-items: center;
-    }
-
-    .pagination a {
-        color: #333;
-        text-decoration: none;
-    }
-
-    .pagination a:hover {
-        color: #007BFF;
-    }
-    .pagination-link {
-    display: none !important;
-}
-</style>
-
+    <div class="container">        
+        <h3>Welcome, <b> {{ $user->name }}</b> </h3>        
+    </div>
 
     <div class="container">
-        <h1>Welcome, {{ $user->name }}</h1>
-
-        <h2>Your Shops:</h2>
-        @if ($shops->count() > 0)
-            {{-- <table class="table"> --}}
-                {{-- <thead> --}}
-            <table class="table table-bordered table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Shop Name</th>
-                        <th>Shop Address</th>
-                        <th>Province</th>
-                        <th>City</th>
-                        <th>Sub-district</th>
-                        <th>Urban Village</th>
-                        <th>PIC Name</th>
-                        <th>PIC Phone Number</th>
-                        <!-- Tambahkan kolom tambahan sesuai kebutuhan -->
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($shops as $shop)
-                        <tr>
-                            <td>{{ $shop->shop_name }}</td>
-                            <td>{{ $shop->shop_address }}</td>
-                            <td>{{ $shop->provinsi }}</td>
-                            <td>{{ $shop->kota }}</td>
-                            <td>{{ $shop->kecamatan }}</td>
-                            <td>{{ $shop->kelurahan }}</td>
-                            <td>{{ $shop->nama_pic }}</td>
-                            <td>{{ $shop->nomor_hp_pic }}</td>
-                            <!-- Tambahkan sel untuk kolom tambahan sesuai kebutuhan -->
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-           
-
-            <div class="d-flex justify-content-center">
-                {{ $shops->links() }}
+        <div class="row">
+            <div class="col-md-12">                
+                <a href="{{ route('visits.showVisitedStoreData') }}">Cek daftar toko yang sudah di visit</a>
             </div>
-
-
-
-        @else
-            <p>You don't have any shops.</p>
-        @endif
+            <div class="col-md-12">                
+                <a href="{{ url('sales-report/?bulan=10&tahun=2023') }}">Cek laporan toko yang sudah di visit</a>
+            </div>
+        </div>
     </div>
+
+    <br>
+    <hr>
+    <br>
+
+
+    
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Toko</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                @if ($shops->count() > 0)
+
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>                            
+                                <th>Nama Toko</th>
+                                <th>Alamat Toko</th>
+                                <th>Provinsi</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>                        
+                                <th>Nama PIC</th>
+                                <th>No. Handphone PIC</th>
+                                <th>Action</th>
+                                
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <th>Nama Toko</th>
+                                <th>Alamat Toko</th>
+                                <th>Provinsi</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>                        
+                                <th>Nama PIC</th>
+                                <th>No. Handphone PIC</th>
+                                <th>Action</th>                            
+                            
+                        </tfoot>
+                        <tbody>
+
+                            @foreach ($shops as $shop)
+                                <tr>
+                                    <td>{{ $shop->shop_name }}</td>
+                                    <td>{{ $shop->shop_address }}</td>
+                                    <td>{{ $shop->provinsi }}</td>
+                                    <td>{{ $shop->kota }}</td>
+                                    <td>{{ $shop->kecamatan }}</td>
+                                    <td>{{ $shop->kelurahan }}</td>
+                                    <td>{{ $shop->nama_pic }}</td>
+                                    <td>{{ $shop->nomor_hp_pic }}</td>
+                                    <td><a href="{{ route('visits.create', $shop->id) }}">Visit</a></td>
+                                    {{-- <td>Visit toko</td> --}}
+                                </tr>
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
+                @endif
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
 @endsection

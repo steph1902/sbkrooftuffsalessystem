@@ -28,7 +28,6 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 
-
           
 
 
@@ -37,13 +36,13 @@
                 <div class="card-header">{{ __('Shop Details') }}</div>
                 <div class="card-body">
                     <h2>{{ $shop->shop_name }}</h2>
-                    <p>Address: {{ $shop->shop_address }}</p>
-                    <p>Region: {{ $shop->shop_region }}</p>
-                    <p>City: {{ $shop->shop_city }}</p>
-                    <p>District: {{ $shop->shop_district }}</p>
-                    <p>Subdistrict: {{ $shop->shop_subdistrict }}</p>
+                    <p>Alamat: <b>{{ $shop->shop_address }}</b>  </p>
+                    <p>Provinsi: <b>{{ $shop->provinsi }}</b> </p>
+                    <p>Kota: <b>{{ $shop->kota }}</b>  </p>
+                    <p>Kecamatan:  <b>{{ $shop->kecamatan }}</b> </p>
+                    <p>Kelurahan: <b>{{ $shop->kelurahan }}</b>  </p>
 
-                    <h2>Visit Shop</h2>
+                    <h2>Kunjungi toko</h2>
                     {{-- <form action="{{ route('submit.visit') }}" method="POST" enctype="multipart/form-data"> --}}
                     <form action="{{ route('visits.store', $shop->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf

@@ -35,42 +35,25 @@ class HomeController extends Controller
         
         $user = Auth::user();
         $userName = Auth::user()->name;
+        $userId = Auth::user()->id;
+        $shops = DB::table('shop')->where('nama_sales', $userName)->get();
 
-        // Mengambil semua data toko yang memiliki nama sales yang sesuai dengan pagination
-    $shops = DB::table('shop')->where('nama_sales', $userName)->paginate(10); // Gantilah 10 dengan jumlah data per halaman yang Anda inginkan
-
-    return view('home', compact('user', 'shops'));
-    // return view('home', compact('sales', 'assignedShops','visitedShops'));  
-
-        // $assignedShops = 
-
-        // return 'berhasil login';
-        // $userEmail = Auth::user()->email;
-        
-        // $sales = DB::table('sales')
-        //     ->where('email', $userEmail)
-        //     ->get();
-
-          
-       
-        // $userId = Auth::user()->id;
-       
-
-        // $assignedShops = DB::table('sales_shop')
-        //     ->join('shop', 'sales_shop.shop_id', '=', 'shop.id')
-        //     ->join('sales', 'sales_shop.salesperson_id', '=', 'sales.id')
-        //     ->where('sales_shop.salesperson_id', $userId)
-        //     ->select('shop.*')
-        //     ->get();
-
-        // $visitedShops = DB::table('sales_visit')
-        // ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
-        // ->where('sales_visit.sales_id', $userId)
-        // ->select('sales_visit.*', 'shop.shop_name', 'shop.shop_address', 'shop.shop_region', 'shop.shop_city', 'shop.shop_district', 'shop.shop_subdistrict', 'shop.shop_googlemaps_coord', 'shop.shop_uuid')
-        // ->get();
+        $visitedShops = DB::table('sales_visit')
+        ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
+        ->where('sales_visit.sales_id', $userId)
+        ->select('sales_visit.*', 
+        'shop.shop_name', 
+        'shop.shop_address', 
+        'shop.provinsi', 
+        'shop.kota', 
+        'shop.kecamatan', 
+        'shop.kelurahan', 
+        'shop.shop_googlemaps_coord', 
+        'shop.shop_uuid')
+        ->get();
 
 
-       
-        // return view('home', compact('sales', 'assignedShops','visitedShops'));        
+        return view('home', compact('user', 'shops','visitedShops'));
+            
     }
 }

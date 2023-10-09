@@ -21,41 +21,43 @@ class VisitController extends Controller
     {
         $visit = Visit::findOrFail($id);      
 
-
-        // dd($visit);  
-
         $visit = DB::table('sales_visit')
         ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
         ->where('sales_visit.id', $id)
-        ->select('sales_visit.*', 'shop.shop_name', 'shop.shop_address', 'shop.shop_region', 'shop.shop_city', 'shop.shop_district', 'shop.shop_subdistrict', 'shop.shop_googlemaps_coord', 'shop.shop_uuid')
+        ->select('sales_visit.*', 
+        'shop.shop_name', 
+        'shop.shop_address', 
+        'shop.provinsi', 
+        'shop.kota', 
+        'shop.kecamatan', 
+        'shop.kelurahan', 
+        'shop.shop_googlemaps_coord', 
+        'shop.shop_uuid')
         ->first();
 
-        
-
-        // $visit2 = DB::table('sales_visit')              
-        // ->where('sales_visit.id', $id)
-        // ->select('sales_visit.*')
-        // ->first();
-
-        // dd($visit2);
-        // dd($visit);
         return view('visits.show', compact('visit'));
-
 
     }
 
-    // public function show($location)
-    // {
-    //     $visit = DB::table('sales_visit')
-    //         ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
-    //         ->where('sales_visit.location', $location)
-    //         ->select('sales_visit.*', 'shop.shop_name', 'shop.shop_address', 'shop.shop_region', 'shop.shop_city', 'shop.shop_district', 'shop.shop_subdistrict', 'shop.shop_googlemaps_coord', 'shop.shop_uuid')
-    //         ->first();
+    public function showVisitedStoreData()
+    {
+        $userId = Auth::user()->id;
+        $visitedShops = DB::table('sales_visit')
+        ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
+        ->where('sales_visit.sales_id', $userId)
+        ->select('sales_visit.*', 
+        'shop.shop_name', 
+        'shop.shop_address', 
+        'shop.provinsi', 
+        'shop.kota', 
+        'shop.kecamatan', 
+        'shop.kelurahan', 
+        'shop.shop_googlemaps_coord', 
+        'shop.shop_uuid')
+        ->get();
 
-    //     return view('visits.show', compact('visit'));
-    // }
-
-
+       return view('visits.data', compact('visitedShops'));
+    }
 
 
     public function create($id)
@@ -135,6 +137,7 @@ class VisitController extends Controller
         
     
         $visit->save();
+        return redirect()->route('visits.show', $visit->id);
         // dd('success');
         // return redirect()->route('shop.details', $visit->shop_id)->with('success', 'Visit recorded successfully.');
 
