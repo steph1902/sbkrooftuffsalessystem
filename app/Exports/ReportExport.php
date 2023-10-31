@@ -3,14 +3,27 @@
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Carbon\Carbon;
+// use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithDefaultStyles;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
-class ReportExport implements FromCollection
+class ReportExport implements FromCollection, WithStyles, WithColumnFormatting, WithDefaultStyles, ShouldAutoSize, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-
-
     protected $reportData;
 
     public function __construct($reportData)
@@ -24,42 +37,61 @@ class ReportExport implements FromCollection
         return $this->reportData;
 
     }
+    
+    public function styles(Worksheet $sheet)
+    {        
+        return [
+
+            1    => ['font' => ['bold' => true]],
+            
+        ];
+    }
+    public function columnFormats(): array
+    {
+        return [
+            'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        ];
+    }
+    public function defaultStyles(Style $defaultStyle)
+    {
+        return $defaultStyle->getFill()->setFillType(Fill::FILL_SOLID);
+    }
+
     public function headings(): array
     {
         return [
-            'id',
-            // 'shop_id',
-            'visit_date',
-            'location',
-            'created_at',
-            // 'updated_at',
-            'materials',
-            'photo',
-            'photos',
-            'notes',
-            'sales_id',
-            'shop_name',
-            'shop_address',
-            'shop_region',
-            'shop_city',
-            'shop_district',
-            'shop_subdistrict',
-            // 'shop_googlemaps_coord',
-            // 'shop_uuid',
-            // 'deleted_at',
-            // 'nik',
-            'nama',
-            // 'tempat_lahir',
-            // 'tanggal_lahir',
-            // 'alamat_ktp',
-            // 'alamat_domisili',
-            'nomor_handphone',
-            'email',
-            'username',
-            // 'password',
-            // 'user_id',
+            'Unique Id.',
+            'Nama Sales',
+            'Nama Toko',
+            'Alamat Toko',
+            'Kota',
+            // 'Foto Toko Depan',
+            'Kunjungan Terakhir',
+            
         ];
     }
+
+    private function formatTanggal($data)
+    {        
+        $formattedDates = [];
+        $kunjunganTerakhir = $data->kunjungan_terakhir; // Gantilah dengan atribut yang sesuai di model Anda
+
+        // Pastikan ada data dalam array kunjungan terakhir
+        if (is_array($kunjunganTerakhir) && count($kunjunganTerakhir) > 0) {
+            $count = min(count($kunjunganTerakhir), 3); // Ambil maksimal 3 data kunjungan terakhir
+            $kunjunganTerakhir = array_slice($kunjunganTerakhir, 0, $count);
+
+            foreach ($kunjunganTerakhir as $tanggal) {
+                $formattedDates[] = Carbon::parse($tanggal)->format('l, d F Y');
+            }
+        }
+
+        return implode(', ', $formattedDates);
+    }
+
+
+
+
 }
 
 

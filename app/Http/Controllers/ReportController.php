@@ -20,39 +20,37 @@ use App\Models\Visit;
 
 class ReportController extends Controller
 {
-    
 
-    // public function export(Request $request)
-    // {
-    //     $query = Shop::query();
-
-        
-    //     if ($request->filled('shop_name')) {
-    //         $query->where('shop_name', 'like', '%' . $request->input('shop_name') . '%');
-    //     }
-    //     if ($request->filled('sales_name')) {
-    //         $query->whereHas('sales', function ($query) use ($request) {
-    //             $query->where('name', 'like', '%' . $request->input('sales_name') . '%');
-    //         });
-    //     }
-    //     if ($request->filled('province')) {
-    //         $query->where('shop_province', 'like', '%' . $request->input('province') . '%');
-    //     }
-
-    //     $shops = $query->get();
-
-    //     return Excel::download(new ShopExport($shops), 'report.xlsx');
-    // }
 
     public function export()
     {
-        $reportData = DB::table('sales_visit')
-            ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
-            ->join('sales', 'sales.id', '=', 'sales_visit.sales_id')
-            ->select('sales_visit.*', 'shop.*', 'sales.*')
-            ->get();
-
         
+
+        $reportData = DB::table('sales_visit')
+        ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
+        ->join('users', 'users.id', '=', 'sales_visit.sales_id')        
+        ->select(
+            'sales_visit.id as No.',
+            'users.name as Nama Sales', // Menambahkan Nama Sales
+            'shop.shop_name as Nama Toko',
+            'shop.shop_address as Alamat Toko',
+            'shop.kota as Kota',
+            // 'shop.photo as Foto Toko Depan',
+            'sales_visit.created_at as Tanggal Kunjungan',
+            
+        )
+        ->groupBy(
+            'sales_visit.id', 
+            'shop.shop_name', 
+            'shop.shop_address', 
+            'shop.kota', 
+            'shop.photo', 
+            'users.name') // Pastikan Nama Sales ditambahkan ke dalam GROUP BY
+        ->get();
+
+        // dd($reportData);
+
+
 
         return Excel::download(new ReportExport($reportData), 'report.xlsx');
     }
