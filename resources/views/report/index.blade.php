@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.table')
 
 @section('content')
 
@@ -105,15 +105,15 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Shop Name</th>
-                                    <th>Shop Address</th>
-                                    <th>Sales Name</th>
-                                    <th>Sales Phone Number</th>
-                                    <th>Shop City</th>
+                                    <th>Nama Toko</th>
+                                    <th>Alamat Toko</th>
+                                    <th>Nama Sales</th>
+                                    {{-- <th>Sales Phone Number</th> --}}
+                                    <th>Kota</th>
                                     <th>Photo Toko Depan</th>
-                                    <th>Shop Location (Coordinate)</th>
-                                    <th>Shop Last Visit</th>
-                                    <th>Shop Materials</th>
+                                    {{-- <th>Shop Location (Coordinate)</th> --}}
+                                    <th>Tanggal Kunjungan Terakhir</th>
+                                    <th>Material Toko</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -121,13 +121,54 @@
                                     $counter = 1;
                                 @endphp
                                 @foreach($reportData as $report)
+
+{{-- 
+                                +"id": 21
+                                +"shop_id": 47
+                                +"visit_date": null
+                                +"location": "lon=11887772.00476045,lat=-684298.8851659015"
+                                +"created_at": null
+                                +"updated_at": "2023-10-09 13:56:38"
+                                +"materials": "brochure,standing_banner,billboard"
+                                +"photo": null
+                                +"photos": null
+                                +"notes": "test"
+                                +"sales_id": 21
+                                +"nama_sales": "BILLY"
+                                +"shop_name": "TB Madju"
+                                +"shop_address": "Jl. Sumur Batu Raya No.409, RT.2/RW.2, Sumur Batu, Kec. Kemayoran, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10640"
+                                +"provinsi": null
+                                +"kota": "Jakarta Pusat"
+                                +"kecamatan": null
+                                +"kelurahan": "SUMUR BATU"
+                                +"nama_pic": "AYONG"
+                                +"nomor_hp_pic": "081299831199"
+                                +"shop_googlemaps_coord": null
+                                +"shop_uuid": null
+                                +"deleted_at": null
+                                +"name": "BILLY"
+                                +"email": "billy@rooftuff.com"
+                                +"email_verified_at": null
+                                +"password": "eyJpdiI6IkVib2dSQmJUS3Rud1pCdGhNYUFQY2c9PSIsInZhbHVlIjoiWXQ1eFRxbnpQSFpRQlFTQWtWMEFsQ1dsR05yM3RFeGJyV3RqbTVHbThTUT0iLCJtYWMiOiJkN2Q3MWFhNTQxM2M1ZTY3OTRmZGRmY2Iy ▶"
+                                +"remember_token": null
+                                +"role": "sales"
+                                +"peran_user": null
+                                +"tanggal_lahir": null
+                                +"nomor_ktp_sales": null
+                                +"nomor_handphone_sales": null
+                                +"verification_code": null
+                                +"verification_expires_at": null
+                                +"is_verified": false
+                              } --}}
+
+
                                 <tr>
                                     <td>{{ $counter++ }}</td>
                                     <td>{{ $report->shop_name }}</td>
                                     <td>{{ $report->shop_address }}</td>
-                                    <td>{{ $report->nama }}</td>
-                                    <td>{{ $report->nomor_handphone }}</td>
-                                    <td>{{ $report->shop_city }}</td>
+                                    <td>{{ $report->nama_sales }}</td>
+                                    {{-- <td>{{ $report->nomor_handphone }}</td> --}}
+                                    <td>{{ $report->kota }}</td>
                                     <td>
                                         
                                       
@@ -142,38 +183,13 @@
                                         
                                     
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         
                                         {{ $report->location }}
-                                        {{-- <br>
-                                        <a href="#" onclick="showMap('{{ $report->location }}')">
-                                            {{ $report->location }}
-                                        </a>
-
-                                        <br>
-                                        
-                                            <a href="#" onclick="showMap('{{ $report->location }}')">
-                                                {{ $report->location }}
-                                            </a>
-                                        
-                                        <br>
-                                        <hr>
-                                        <br>
-                                        <a href="#" onclick="showMap('{{ $report->location }}')">
-                                            View Map
-                                        </a>
-
-                                        <br>
-                                        <a href="#" onclick="showMap('{{ $report->location }}')">
-                                            View Map
-                                        </a>
-                                        <br>
-                                        <a href="#" onclick="showMap('{{ $report->location }}'); return false;">
-                                            View Map
-                                        </a> --}}
+                                       
                                         
                                     
-                                    </td>                                    
+                                    </td>                                     --}}
                                     <td>{{ \Carbon\Carbon::parse($report->created_at)->format('D, d M Y H:i') }}</td>
                                     <td>{{ $report->materials }}</td>
                                 </tr>

@@ -12,6 +12,10 @@ class Shop extends Model
     use HasFactory;
     protected $table = 'shop';
 
+    protected $casts = [
+        'kecamatan' => 'string',
+    ];
+
     public function sales()
     {
         return $this->hasMany(Sale::class);

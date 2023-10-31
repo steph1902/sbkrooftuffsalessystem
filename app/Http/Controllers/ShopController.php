@@ -40,6 +40,8 @@ class ShopController extends Controller
 
         $shops = $query->get();
 
+        // dd($shops);
+
         return view('shops.index', compact('shops'));
 
     }
@@ -65,18 +67,45 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
         $shop = new Shop;
+
+        $shop->nama_sales = $request->user_name;
 
         $shop->shop_name = $request->shop_name;
         $shop->shop_address = $request->shop_address;
 
-        $shop->shop_region = Province::find($request->provinsi)->name;
-        $shop->shop_city = City::find($request->kota)->name;
-        $shop->shop_district = District::find($request->kecamatan)->name;
-        $shop->shop_subdistrict = Village::find($request->desa)->name;
+        $shop->provinsi = Province::find($request->provinsi)->name;
+        $shop->kota = City::find($request->kota)->name;
+        $shop->kecamatan = District::find($request->kecamatan)->name;
+        $shop->kelurahan = Village::find($request->desa)->name;
+
+        // dd(gettype($request->kecamatan));    
+
+
+        // dd($shop->kelurahan);
 
         $shop->shop_uuid = Uuid::uuid4();
+        // dd(gettype($shop->shop_uuid));
+
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $photoPath = $photo->store('photos', 'public');
+            
+            // Add timestamp watermark to the photo
+            $image = Image::make(storage_path('app/public/' . $photoPath));
+            $timestamp = Carbon::now()->format('Y-m-d H:i:s');
+            $image->text($timestamp, $image->width() - 10, $image->height() - 10, function ($font) {
+                $font->file(public_path('fonts/arial.ttf'));
+                $font->size(22);
+                $font->color('#ffffff');
+                $font->align('right');
+                $font->valign('bottom');
+            });
+            $image->save();
+            
+            $visit->photo = $photoPath;
+        }
 
         $shop->save();
 

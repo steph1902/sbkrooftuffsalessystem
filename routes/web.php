@@ -94,3 +94,21 @@ Route::get('/sales-report/export', [SalesReportController::class, 'exportSalesRe
 //         ->where('sales_visit.sales_id', $userId)
 //         ->select('sales_visit.*', 'shop.shop_name', 'shop.shop_address', 'shop.shop_region', 'shop.shop_city', 'shop.shop_district', 'shop.shop_subdistrict', 'shop.shop_googlemaps_coord', 'shop.shop_uuid')
 //         ->get();
+
+
+
+#todo entah kenapa kecamatan di database berubah jadi int
+
+
+// <!DOCTYPE html>
+// <html>
+// <head>
+//     <title>Ambil Foto</title>
+// </head>
+// <body>
+//     <form action="/upload" method="post" enctype="multipart/form-data">
+//         <input type="file" accept="image/*" capture="camera" name="photo">
+//         <input type="submit" value="Upload">
+//     </form>
+// </body>
+// </html>

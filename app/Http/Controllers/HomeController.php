@@ -52,6 +52,9 @@ class HomeController extends Controller
         'shop.shop_uuid')
         ->get();
 
+        // dd($visitedShops);
+        
+
 
         return view('home', compact('user', 'shops','visitedShops'));
             

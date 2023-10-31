@@ -89,8 +89,8 @@ class ReportController extends Controller
             $query->where('shop_name', 'like', '%' . $request->input('shop_name') . '%');
         }
         if ($request->filled('sales_name')) {
-            $query->whereHas('sales', function ($query) use ($request) {
-                $query->where('nama', 'like', '%' . $request->input('sales_name') . '%');
+            $query->whereHas('users', function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->input('sales_name') . '%');
             });
         }
         if ($request->filled('province')) {
@@ -100,20 +100,50 @@ class ReportController extends Controller
         $shops = $query->get();
 
         // Fetch the filtered data
+        // $reportData = DB::table('sales_visit')
+        //     ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
+        //     ->join('sales', 'sales.id', '=', 'sales_visit.sales_id')
+        //     ->select('sales_visit.*', 'shop.*','sales.*')
+        //     ->when($request->filled('shop_name'), function ($query) use ($request) {
+        //         $query->where('shop.shop_name', 'like', '%' . $request->input('shop_name') . '%');
+        //     })
+        //     ->when($request->filled('sales_name'), function ($query) use ($request) {
+        //         $query->where('sales.nama', 'like', '%' . $request->input('sales_name') . '%');
+        //     })
+        //     ->when($request->filled('province'), function ($query) use ($request) {
+        //         $query->where('shop.shop_city', 'like', '%' . $request->input('province') . '%');
+        //     })
+        //     ->get();
+
+            // SQLSTATE[42P01]: Undefined table: 7 ERROR: relation "sales" does not exist LINE 1: ... 
+            // "sales_visit"."shop_id" = "shop"."id" inner join "sales" on... ^ 
+            
+            // (SQL: select "sales_visit".*, "shop".*, "sales".* from "sales_visit" inner join "shop" 
+            
+            // on "sales_visit"."shop_id" = "shop"."id" inner join "sales" on "sales"."id" = "sales_visit"."sales_id")
+
+
+        // Fetch the filtered data
         $reportData = DB::table('sales_visit')
             ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
-            ->join('sales', 'sales.id', '=', 'sales_visit.sales_id')
-            ->select('sales_visit.*', 'shop.*','sales.*')
+            ->join('users', 'users.id', '=', 'sales_visit.sales_id')
+            ->select('sales_visit.*', 'shop.*','users.*')
             ->when($request->filled('shop_name'), function ($query) use ($request) {
                 $query->where('shop.shop_name', 'like', '%' . $request->input('shop_name') . '%');
             })
             ->when($request->filled('sales_name'), function ($query) use ($request) {
-                $query->where('sales.nama', 'like', '%' . $request->input('sales_name') . '%');
+                $query->where('users.name', 'like', '%' . $request->input('sales_name') . '%');
             })
             ->when($request->filled('province'), function ($query) use ($request) {
                 $query->where('shop.shop_city', 'like', '%' . $request->input('province') . '%');
             })
             ->get();
+
+            // dd($reportData);
+
+
+
+        
 
             // dd($reportData);
 

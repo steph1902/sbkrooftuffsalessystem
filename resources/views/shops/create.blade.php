@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.table')
 
 @section('content')
 
@@ -28,6 +28,9 @@ td,th {
 
     <form method="POST" action="{{ route('shops.store') }}">
         @csrf
+
+        <input type="hidden" name="user_name" value="{{ Auth::user()->name }}">
+
 
         <div class="form-group">
             <label for="shop_name">Nama toko:</label>
@@ -76,6 +79,16 @@ td,th {
             <select class="form-control" name="desa" id="desa">
                 <option value="">==Pilih Salah Satu==</option>
             </select>
+        </div>
+
+        <br><hr>
+
+        <div class="form-group">
+            <label for="photo">Upload Photo Toko Depan: (1 foto saja)</label>
+            <input type="file" class="form-control-file" id="photo" name="photo">
+            @error('photo')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
         

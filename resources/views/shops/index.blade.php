@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.table')
 
 @section('content')
 
@@ -75,8 +75,8 @@
                             <th>Kabupaten / Kota</th>
                             <th>Kecamatan</th>
                             <th>Desa</th>
-                            <th>Ubah data toko</th>
-                            <th>Hapus data toko</th>
+                            {{-- <th>Ubah data toko</th>
+                            <th>Hapus data toko</th> --}}
                            
                         </tr>
                     </thead>
@@ -88,8 +88,8 @@
                             <th>Kabupaten / Kota</th>
                             <th>Kecamatan</th>
                             <th>Desa</th>
-                            <th>Ubah data toko</th>
-                            <th>Hapus data toko</th>
+                            {{-- <th>Ubah data toko</th>
+                            <th>Hapus data toko</th> --}}
                            
                         </tr>
                     </tfoot>
@@ -102,23 +102,23 @@
                             <td>{{ $shop->shop_city }}</td>
                             <td>{{ $shop->shop_district }}</td>
                             <td>{{ $shop->shop_subdistrict }}</td>
-                            <td> 
-                                <a href="{{ route('shops.edit', $shop->id) }}">
+                            {{-- <td>  --}}
+                                {{-- <a href="{{ route('shops.edit', $shop->id) }}">
                                     <i class="fa fa-edit"></i> Ubah
-                                </a>
-                            </td>
-                            <td>
+                                </a> --}}
+                            {{-- </td> --}}
+                            {{-- <td> --}}
 
-                                <a href="{{ route('shops.destroy', $shop->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
+                                {{-- <a href="{{ route('shops.destroy', $shop->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
                                     <i class="fa fa-trash"></i> Hapus
                                 </a>
                                 
                                 <form id="delete-form" action="{{ route('shops.destroy', $shop->id) }}" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
-                                </form>
+                                </form> --}}
                                 
-                            </td>
+                            {{-- </td> --}}
                            
                               
                              
