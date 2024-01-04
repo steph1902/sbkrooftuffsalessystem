@@ -19,7 +19,13 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class ReportExport implements FromCollection, WithStyles, WithColumnFormatting, WithDefaultStyles, ShouldAutoSize, WithHeadings
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Maatwebsite\Excel\Concerns\WithDrawings;
+// use Maatwebsite\Excel\Concerns\WithRowHeight;
+
+// use Maatwebsite\Excel\Concerns\WithDrawings;
+
+class ReportExport implements FromCollection, WithStyles, WithColumnFormatting, WithDefaultStyles, ShouldAutoSize, WithHeadings, WithDrawings
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -37,12 +43,25 @@ class ReportExport implements FromCollection, WithStyles, WithColumnFormatting, 
         return $this->reportData;
 
     }
+
+    public function rowHeight(): array
+    {
+        // Tentukan tinggi baris untuk setiap baris, sesuaikan dengan kebutuhan Anda
+        return [
+            2 => 200, // misalnya, baris kedua memiliki tinggi 100        
+        ];
+    }
     
     public function styles(Worksheet $sheet)
     {        
         return [
 
-            1    => ['font' => ['bold' => true]],
+            '1' => ['font' => ['bold' => true]],
+            'G' => ['height' => 200, 'alignment' => ['vertical' => 'center']],
+
+            // 'G' => ['height' => 100, 'width' => 90], // Sesuaikan dengan ukuran yang sesuai
+
+
             
         ];
     }
@@ -65,8 +84,10 @@ class ReportExport implements FromCollection, WithStyles, WithColumnFormatting, 
             'Nama Toko',
             'Alamat Toko',
             'Kota',
-            // 'Foto Toko Depan',
             'Kunjungan Terakhir',
+            'Foto Toko Depan',
+            'Catatan',
+            'Kelengkapan Material'
             
         ];
     }
@@ -88,6 +109,33 @@ class ReportExport implements FromCollection, WithStyles, WithColumnFormatting, 
 
         return implode(', ', $formattedDates);
     }
+
+
+    public function drawings()
+    {
+        $drawingCollection = [];        
+        $row = 2;
+        $column = 'G';
+
+        foreach ($this->reportData as $data) {
+            $drawing = new Drawing();
+            $drawing->setName('MyImage');
+            $drawing->setDescription('Description');
+            if($data->{'Foto Toko Depan'})
+            {
+                $imagePath = storage_path('app/public/' . $data->{'Foto Toko Depan'});
+                $drawing->setPath($imagePath);                
+                $drawing->setHeight(20);
+                $drawing->setWidth(20);
+                $drawing->setCoordinates($column . $row);
+                $drawingCollection[] = $drawing;
+            }
+            $row++;
+        }
+
+        return $drawingCollection;
+    }
+
 
 
 

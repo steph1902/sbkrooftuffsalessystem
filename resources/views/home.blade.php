@@ -73,7 +73,7 @@
                                     <td>{{ $shop->nama_pic }}</td>
                                     <td>{{ $shop->nomor_hp_pic }}</td>
                                     <td><a href="{{ route('visits.create', $shop->id) }}">Visit</a></td>
-                                    <td>Visit toko</td>
+                                    {{-- <td>Visit toko</td> --}}
                                 </tr>
                             @endforeach
                             

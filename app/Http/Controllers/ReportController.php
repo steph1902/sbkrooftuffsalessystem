@@ -23,21 +23,21 @@ class ReportController extends Controller
 
 
     public function export()
-    {
-        
-
+    {        
         $reportData = DB::table('sales_visit')
         ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
         ->join('users', 'users.id', '=', 'sales_visit.sales_id')        
         ->select(
             'sales_visit.id as No.',
-            'users.name as Nama Sales', // Menambahkan Nama Sales
+            'users.name as Nama Sales', 
             'shop.shop_name as Nama Toko',
             'shop.shop_address as Alamat Toko',
-            'shop.kota as Kota',
-            // 'shop.photo as Foto Toko Depan',
-            'sales_visit.created_at as Tanggal Kunjungan',
-            
+            'shop.kota as Kota',            
+            'sales_visit.created_at as Kunjungan Terakhir',
+            'sales_visit.photo as Foto Toko Depan',
+            'sales_visit.notes as Catatan',
+            'sales_visit.materials as Materials'
+
         )
         ->groupBy(
             'sales_visit.id', 
@@ -45,13 +45,12 @@ class ReportController extends Controller
             'shop.shop_address', 
             'shop.kota', 
             'shop.photo', 
-            'users.name') // Pastikan Nama Sales ditambahkan ke dalam GROUP BY
+            'users.name') 
         ->get();
 
         // dd($reportData);
 
-
-
+        
         return Excel::download(new ReportExport($reportData), 'report.xlsx');
     }
 

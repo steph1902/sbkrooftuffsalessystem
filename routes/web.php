@@ -10,7 +10,7 @@ use App\Http\Controllers\VisitController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PasswordGenerationController;
-use App\Http\Controllers\SalesReportController;
+use App\Http\Controllers\SalesReportController; 
 
 
 
