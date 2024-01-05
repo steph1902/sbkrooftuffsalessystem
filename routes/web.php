@@ -85,6 +85,20 @@ Route::get('/sales-report/export', [SalesReportController::class, 'exportSalesRe
 
 
 
+
+Route::middleware(['role:sales'])->group(function () {
+    // Route yang hanya dapat diakses oleh peran sales
+    Route::get('/sales/dashboard', 'SalesController@dashboard');
+});
+
+Route::middleware(['role:owner'])->group(function () {
+    // Route yang hanya dapat diakses oleh peran owner
+    Route::get('/owner/dashboard', 'OwnerController@dashboard');
+});
+
+
+
+
 // <td>{{ \Carbon\Carbon::parse($visit->created_at)->format('D, d M Y H:i') }}</td>
 // <a href="{{ route('visits.show', $visit->id) }}">View Details</a>
 // <td><a href="{{ route('visits.create', $shop->id) }}">Visit</a></td>

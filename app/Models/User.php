@@ -16,6 +16,13 @@ class User extends Authenticatable
     const ROLE_SUPERADMIN = 'superadmin';
     const ROLE_SALES = 'sales';
 
+        // User.php
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *
