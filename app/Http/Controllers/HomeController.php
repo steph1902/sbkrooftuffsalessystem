@@ -87,7 +87,33 @@ class HomeController extends Controller
             return view('sales.dashboard', compact('user', 'shops', 'visitedShops'));
         } elseif ($user->role === 'SUPERADMIN') {
             // You can customize this part based on superadmin's dashboard
-            return view('owner.dashboard', compact('user'));
+
+            // Menghitung total sales dengan role 'sales'
+            $totalSales = User::where('role', 'sales')->count();
+            $totalShops = Shop::count();
+
+            // Mendapatkan data jumlah toko per provinsi
+            $shopsPerCity = DB::table('shop')
+            ->select('kota', DB::raw('COUNT(*) as total'))
+            ->groupBy('kota')
+            ->get();
+
+            // dd($shopsPerProvince);
+
+
+            // Mendapatkan data jumlah toko yang dikunjungi dan belum dikunjungi
+            $visitedVsNotVisitedShops = DB::table('shop')
+            ->select('kota', 
+                DB::raw('COUNT(DISTINCT sales_visit.shop_id) as visited'),
+                DB::raw('COUNT(*) - COUNT(DISTINCT sales_visit.shop_id) as not_visited')
+            )
+            ->leftJoin('sales_visit', 'shop.id', '=', 'sales_visit.shop_id')
+            ->groupBy('kota')
+            ->get();
+
+
+
+            return view('owner.dashboard', compact('user','totalSales','totalShops','shopsPerCity','visitedVsNotVisitedShops'));
         }
 
         // For other roles or unknown roles, just redirect to the default home
