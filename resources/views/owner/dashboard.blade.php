@@ -1,8 +1,8 @@
-<h1>SUPERADMIN OWNER DASHBOARD</h1>
+{{-- <h1>SUPERADMIN OWNER DASHBOARD</h1> --}}
 
 <!-- dashboard.blade.php -->
 
-@extends('layouts.app')
+@extends('layouts.superadmin')
 
 @section('content')
     <!-- Your owner dashboard content here -->
@@ -15,6 +15,8 @@
 
                     <div class="card-body">
                         Welcome, {{ Auth::user()->name }}!
+
+                        <br><hr><br>
 
                         <!-- Add this logout form -->
                         <form action="{{ route('logout') }}" method="POST">

@@ -35,7 +35,8 @@ class SalesController extends Controller
     public function index()
     {
         //
-        $sales = Sales::all();
+        $sales = User::all();
+        // dd($)
         return view('sales.index', compact('sales'));
     }
 
@@ -87,7 +88,7 @@ class SalesController extends Controller
     public function show($id)
     {
         //
-        $sales = Sales::findOrFail($id);
+        $sales = User::findOrFail($id);
 
         return view('sales.show', compact('sales'));
 
@@ -102,7 +103,7 @@ class SalesController extends Controller
     public function edit($id)
     {
         //
-        $sales = Sales::findOrFail($id);
+        $sales = User::findOrFail($id);
 
         return view('sales.edit', compact('sales'));
 

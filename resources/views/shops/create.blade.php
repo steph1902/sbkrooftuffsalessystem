@@ -1,4 +1,4 @@
-@extends('layouts.table')
+@extends('layouts.superadmin')
 
 @section('content')
 

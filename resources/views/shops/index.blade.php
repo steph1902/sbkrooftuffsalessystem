@@ -1,4 +1,4 @@
-@extends('layouts.table')
+@extends('layouts.superadmin')
 
 @section('content')
 
@@ -10,7 +10,7 @@
 @endif
 
 
-
+{{-- 
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<hr>
+<hr> --}}
 
 <div class="container">
     <div class="row">

@@ -1,4 +1,4 @@
-@extends('layouts.table')
+@extends('layouts.superadmin')
 
 @section('content')
 
@@ -110,7 +110,7 @@
                                     <th>Nama Sales</th>
                                     {{-- <th>Sales Phone Number</th> --}}
                                     <th>Kota</th>
-                                    <th>Photo Toko Depan</th>
+                                    {{-- <th>Photo Toko Depan</th> --}}
                                     {{-- <th>Shop Location (Coordinate)</th> --}}
                                     <th>Tanggal Kunjungan Terakhir</th>
                                     <th>Material Toko</th>
@@ -169,20 +169,20 @@
                                     <td>{{ $report->nama_sales }}</td>
                                     {{-- <td>{{ $report->nomor_handphone }}</td> --}}
                                     <td>{{ $report->kota }}</td>
-                                    <td>
+                                    {{-- <td>
                                         
                                       
                                             <a href="{{ asset('storage/' . $report->photo) }}" target="_blank">
                                                 Click to Enlarge or View <br>
 
                                                 {{-- <img src="{{ asset('storage/' . $report->photo) }}" alt="Photo Toko Depan"> --}}
-                                                <img src="{{ asset('storage/' . $report->photo) }}" alt="Photo Toko Depan" style="width: 100px; height: auto;">
+                                                {{-- <img src="{{ asset('storage/' . $report->photo) }}" alt="Photo Toko Depan" style="width: 100px; height: auto;">
 
-                                            </a>
+                                            </a> --}}
                                         
                                         
                                     
-                                    </td>
+                                    {{-- </td> --}} 
                                     {{-- <td>
                                         
                                         {{ $report->location }}

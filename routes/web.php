@@ -79,6 +79,9 @@ Route::get('/sales-passwords', [PasswordGenerationController::class, 'showSalesP
 
 // Route::get('/sales-report', [SalesReportController::class, 'showSalesReport']);
 Route::get('/sales-report', [SalesReportController::class, 'showSalesReport'])->name('sales-report');
+Route::get('/sales-report-for-superadmin', [SalesReportController::class, 'showSalesReportBySuperadmin2'])->name('sales-report-superadmin');
+// Route::get('/test-access', [SalesReportController::class, 'testAccess'])->name('test-access');
+// showSalesReportBySuperadmin
 
 #todo
 Route::get('/sales-report/export', [SalesReportController::class, 'exportSalesReport'])->name('sales-report.export');

@@ -4,8 +4,137 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "542b6072df75b530e053b2bf90a933b2",
+    "content-hash": "a31cd9b5e6857927b14e5bef3288be03",
     "packages": [
+        {
+            "name": "arcanedev/route-viewer",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ARCANEDEV/RouteViewer.git",
+                "reference": "23f4fb78fefffbb217d399010afa7b1ef21f9a03"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ARCANEDEV/RouteViewer/zipball/23f4fb78fefffbb217d399010afa7b1ef21f9a03",
+                "reference": "23f4fb78fefffbb217d399010afa7b1ef21f9a03",
+                "shasum": ""
+            },
+            "require": {
+                "arcanedev/support": "^8.0",
+                "ext-json": "*",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.4",
+                "phpunit/phpunit": "^9.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "4.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Arcanedev\\RouteViewer\\RouteViewerServiceProvider",
+                        "Arcanedev\\RouteViewer\\Providers\\DeferredServicesProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Arcanedev\\RouteViewer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ARCANEDEV",
+                    "email": "arcanedev.maroc@gmail.com",
+                    "homepage": "https://github.com/arcanedev-maroc",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Route Viewer is a package that allows you to view all Laravel routes eloquently",
+            "homepage": "https://github.com/ARCANEDEV/RouteViewer",
+            "keywords": [
+                "Viewer",
+                "arcanedev",
+                "laravel",
+                "route"
+            ],
+            "support": {
+                "issues": "https://github.com/ARCANEDEV/RouteViewer/issues",
+                "source": "https://github.com/ARCANEDEV/RouteViewer/tree/4.0.1"
+            },
+            "time": "2020-12-01T12:05:19+00:00"
+        },
+        {
+            "name": "arcanedev/support",
+            "version": "8.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ARCANEDEV/Support.git",
+                "reference": "f401e1a859fe4e84331986d18ee0313e37e89810"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ARCANEDEV/Support/zipball/f401e1a859fe4e84331986d18ee0313e37e89810",
+                "reference": "f401e1a859fe4e84331986d18ee0313e37e89810",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^8.0",
+                "illuminate/support": "^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "laravel/framework": "^8.19",
+                "orchestra/testbench-core": "^6.4",
+                "phpunit/phpunit": "^9.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "8.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "helpers.php"
+                ],
+                "psr-4": {
+                    "Arcanedev\\Support\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ARCANEDEV",
+                    "email": "arcanedev.maroc@gmail.com",
+                    "homepage": "https://github.com/arcanedev-maroc"
+                }
+            ],
+            "description": "ARCANEDEV Support Helpers",
+            "homepage": "https://github.com/ARCANEDEV/Support",
+            "keywords": [
+                "arcanedev",
+                "arcanesoft",
+                "laravel",
+                "support"
+            ],
+            "support": {
+                "issues": "https://github.com/ARCANEDEV/Support/issues",
+                "source": "https://github.com/ARCANEDEV/Support/tree/8.1.1"
+            },
+            "time": "2023-10-06T13:53:11+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.1.1",

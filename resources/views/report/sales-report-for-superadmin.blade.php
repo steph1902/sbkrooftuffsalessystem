@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.superadmin')
 @section('content')
 
 @php
@@ -33,7 +33,23 @@ use Carbon\Carbon;
 </head>
 <body>
 
-    <form action="{{ route('sales-report') }}" method="get">
+    <form action="{{ route('sales-report-superadmin') }}" method="get">
+
+        <label for="sales">Pilih Sales:</label>
+        @if(Auth::user()->role === 'SUPERADMIN')
+        {{-- ->role === 'SUPERADMIN' --}}
+            <select name="sales" id="sales">
+                <option value="" selected>Semua Sales</option>
+                @foreach($allSales as $sales)
+                    <option value="{{ $sales->id }}"{{ $selectedSales == $sales->id ? ' selected' : '' }}>{{ $sales->name }}</option>
+                @endforeach
+            </select>
+        @else
+            <input type="hidden" name="sales" value="{{ Auth::user()->id }}">
+        @endif
+
+
+
         <label for="bulan">Pilih Bulan:</label>
         <select name="bulan" id="bulan">
             @for ($i = 1; $i <= 12; $i++)
@@ -78,6 +94,14 @@ use Carbon\Carbon;
     <br>
     <hr>
     <br>
+
+    {{--  --}}
+    @php
+    print_r($report);
+    @endphp
+
+
+    {{--  --}}
 
 
 

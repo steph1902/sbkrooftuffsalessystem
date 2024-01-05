@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.superadmin')
 
 @section('content')
-    <h1>Create Sales</h1>
+    <h1>Buat Data Sales Baru</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
