@@ -104,10 +104,11 @@ class SalesController extends Controller
     {
         //
         $sales = User::findOrFail($id);
-
         return view('sales.edit', compact('sales'));
 
     }
+    
+
 
     /**
      * Update the specified resource in storage.

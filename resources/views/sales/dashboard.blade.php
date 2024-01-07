@@ -3,8 +3,16 @@
 @section('content')
 
 
-    <div class="container">        
-        <h3>Welcome, <b> {{ $user->name }}</b> </h3>        
+    
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                {{-- <div class="card"> --}}
+                    <h3>Welcome, <b> {{ $user->name }}</b> </h3>     
+                {{-- </div> --}}
+            </div>
+        </div>
     </div>
 
     {{-- <div class="container">
@@ -90,13 +98,13 @@
 
     <hr><br><hr>
 
-
+{{-- 
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Owner Dashboard</div>
+                    <div class="card-header">Sales Dashboard</div>
 
                     <div class="card-body">
                         {{-- Welcome, {{ Auth::user()->name }}! --}}
@@ -104,7 +112,7 @@
                         {{-- <br><hr><br> --}}
 
                         <!-- Add this logout form -->
-                        <form action="{{ route('logout') }}" method="POST">
+                        {{-- <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-danger">Logout</button>
                         </form>
@@ -112,7 +120,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>  --}}
+    
 
     <br><hr><br>
 

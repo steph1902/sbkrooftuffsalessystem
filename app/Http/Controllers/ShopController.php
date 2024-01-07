@@ -13,6 +13,7 @@ use Laravolt\Indonesia\Models\Province;
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Village;
+use Illuminate\Support\Facades\Auth; // Add this line
 
 
 class ShopController extends Controller
@@ -88,29 +89,95 @@ class ShopController extends Controller
         $shop->shop_uuid = Uuid::uuid4();
         // dd(gettype($shop->shop_uuid));
 
+        // if ($request->hasFile('photo')) {
+        //     $photo = $request->file('photo');
+        //     $photoPath = $photo->store('photos', 'public');
+            
+        //     // Add timestamp watermark to the photo
+        //     $image = Image::make(storage_path('app/public/' . $photoPath));
+        //     $timestamp = Carbon::now()->format('Y-m-d H:i:s');
+        //     $image->text($timestamp, $image->width() - 10, $image->height() - 10, function ($font) {
+        //         $font->file(public_path('fonts/arial.ttf'));
+        //         $font->size(22);
+        //         $font->color('#ffffff');
+        //         $font->align('right');
+        //         $font->valign('bottom');
+        //     });
+        //     $image->save();
+            
+        //     $visit->photo = $photoPath;
+        // }
+
+        // Upload and stamp the main photo
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
-            $photoPath = $photo->store('photos', 'public');
-            
-            // Add timestamp watermark to the photo
-            $image = Image::make(storage_path('app/public/' . $photoPath));
-            $timestamp = Carbon::now()->format('Y-m-d H:i:s');
-            $image->text($timestamp, $image->width() - 10, $image->height() - 10, function ($font) {
-                $font->file(public_path('fonts/arial.ttf'));
-                $font->size(22);
-                $font->color('#ffffff');
-                $font->align('right');
-                $font->valign('bottom');
-            });
-            $image->save();
-            
+            $photoPath = $this->uploadAndStampPhoto($photo, 'photos');
             $visit->photo = $photoPath;
         }
 
+
+
         $shop->save();
 
-        return redirect()->route('shops.index')->with('success', 'Shop created successfully.');
+        //
+        $user = Auth::user();
+        if ($user->role === 'sales') 
+        {
+            $userName = $user->name;
+            $userId = $user->id;
+            $shops = DB::table('shop')->where('nama_sales', $userName)->get();
+
+            $visitedShops = DB::table('sales_visit')
+                ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
+                ->where('sales_visit.sales_id', $userId)
+                ->select('sales_visit.*', 
+                    'shop.shop_name', 
+                    'shop.shop_address', 
+                    'shop.provinsi', 
+                    'shop.kota', 
+                    'shop.kecamatan', 
+                    'shop.kelurahan', 
+                    'shop.shop_googlemaps_coord', 
+                    'shop.shop_uuid')
+                ->get();
+            return view('sales.dashboard', compact('user', 'shops', 'visitedShops'));
+        }
+        else
+        {
+            return redirect()->route('shops.index')->with('success', 'Shop created successfully.');
+        }
+
+        
     }
+
+
+    private function uploadAndStampPhoto($photo, $folder)
+    {        
+        // working old code
+
+        // /
+        $photoPath = $photo->store($folder, 'public');        
+        $image = Image::make(storage_path('app/public/' . $photoPath));
+        $timestamp = Carbon::now()->format('Y-m-d H:i:s');
+        $location = $this->request->input('address'); // Menggunakan $this->request
+
+        $image->text($location . ' - ' . $timestamp, $image->width() - 10, $image->height() - 10, function ($font) {
+            $font->file(public_path('fonts/arial.ttf'));
+            $font->size(14);
+            $font->color('#ffffff');
+            $font->align('right');
+            $font->valign('bottom');
+        });
+        $image->save();
+
+        return $photoPath;
+
+
+    }
+
+
+
+
 
     /**
      * Display the specified resource.

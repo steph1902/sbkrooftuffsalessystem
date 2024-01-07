@@ -63,8 +63,14 @@ Route::post('/shops/{id}/visits', [VisitController::class, 'store'])->name('visi
 
 
 Route::get('visits/{location}', [VisitController::class, 'show'])->name('visits.show');
+Route::get('visits/{id}/edit', [VisitController::class, 'edit'])->name('visits.edit');
+Route::put('visits/{id}', [VisitController::class, 'update'])->name('visits.update');
+
+
 
 Route::get('visited-store-data}', [VisitController::class, 'showVisitedStoreData'])->name('visits.showVisitedStoreData');
+
+
 
 
 // Route::get('/report/{token}', [ReportController::class, 'index'])->name('report.index');

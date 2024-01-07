@@ -96,43 +96,23 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Data Toko Sales:</h6>
-                            <a class="collapse-item" href="{{ route('visits.showVisitedStoreData') }}">Lihat Data Toko</a>
+                            <a class="collapse-item" href="{{ route('visits.showVisitedStoreData') }}">Lihat Data Kunjungan Toko</a>
                             <a class="collapse-item" href="{{ url('sales-report/?bulan=10&tahun=2023') }}">Cek Laporan Toko</a>
+                            <hr>
+                            <a class="collapse-item" href="{{ route('shops.create') }}">Tambah Data Toko</a>
+                            <hr>
+                            {{-- <a class="collapse-item" href="{{ url('sales-report/?bulan=10&tahun=2023') }}">Logout</a> --}}
+                            <a class="collapse-item">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Logout</button>
+                                </form>
+                            </a>
+                            
                         </div>
                     </div>
                 </li>
-
-
-                <!-- Nav Item - Pages Collapse Menu -->
-                {{-- <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Data Sales</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Kelola Data Sales:</h6>
-                            <a class="collapse-item" href="{{url('sales')}}">Lihat Data Sales</a>
-                        </div>
-                    </div>
-                </li> --}}
-
-                {{-- <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Data Report</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Report:</h6>
-                            <a class="collapse-item" href="{{ route('report.index') }}">Lihat Laporan</a>
-                            <a class="collapse-item" href="{{ route('report.export') }}">Download Laporan</a>
-                        </div>
-                    </div>
-                </li> --}}
-    
+                    
             </ul>
             <!-- End of Sidebar -->
     
@@ -187,25 +167,7 @@
             <i class="fas fa-angle-up"></i>
         </a>
     
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
     
         <!-- Bootstrap core JavaScript-->
         <script src="{{asset('sbadmin/vendor/jquery/jquery.min.js')}}"></script>        

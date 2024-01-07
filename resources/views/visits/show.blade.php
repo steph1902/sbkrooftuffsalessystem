@@ -38,7 +38,18 @@
 
                     @if ($visit->photo)
                         <p>Photo Toko Depan:</p>
-                        <img src="{{ asset('storage/' . $visit->photo) }}" alt="Photo Toko Depan">
+
+                        <div class="row justify-content-center">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <img src="{{ asset('storage/' . $visit->photo) }}" alt="Photo Toko Depan">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        
                     @endif
                 </div>
             </div>
