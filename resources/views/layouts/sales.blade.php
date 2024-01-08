@@ -101,6 +101,8 @@
                             <hr>
                             <a class="collapse-item" href="{{ route('shops.create') }}">Tambah Data Toko</a>
                             <hr>
+                            <a class="collapse-item" href="{{ route('update.password.form') }}">Ubah Password</a>                            
+                            <hr>
                             {{-- <a class="collapse-item" href="{{ url('sales-report/?bulan=10&tahun=2023') }}">Logout</a> --}}
                             <a class="collapse-item">
                                 <form action="{{ route('logout') }}" method="POST">

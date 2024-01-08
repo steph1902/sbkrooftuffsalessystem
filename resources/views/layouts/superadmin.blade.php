@@ -120,8 +120,32 @@
                         </div>
                     </div>
                 </li>
+
+
+                <hr>
+
+                <li class="nav-item">
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Logout</button>
+                                </form>
+                            </a>
+                        </div>
+                    </div>
+                </li>
     
             </ul>
+
+           
+
+
+                
+
+
+
             <!-- End of Sidebar -->
     
             <!-- Content Wrapper -->

@@ -1,5 +1,4 @@
 @extends('layouts.superadmin')
-
 @section('content')
 
 

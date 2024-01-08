@@ -92,7 +92,7 @@
 
 
 
-    <hr><br><hr>
+    {{-- <hr><br><hr>
 
 
 
@@ -106,8 +106,6 @@
                         Welcome, {{ Auth::user()->name }}!
 
                         <br><hr><br>
-
-                        <!-- Add this logout form -->
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-danger">Logout</button>
@@ -116,7 +114,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <br><hr><br>
 

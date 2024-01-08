@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PasswordGenerationController;
 use App\Http\Controllers\SalesReportController; 
+use App\Http\Controllers\UserController; 
 
 
 
@@ -82,6 +83,16 @@ Route::get('/report/export', [ReportController::class, 'export'])->name('report.
 // Route::get('/sales-passwords', 'PasswordGenerationController@showSalesPasswords');
 Route::get('/generate-sales-passwords', [PasswordGenerationController::class, 'generatePasswords']);
 Route::get('/sales-passwords', [PasswordGenerationController::class, 'showSalesPasswords']);
+
+
+Route::get('/update-sales-password', [UserController::class, 'showUpdatePasswordForm'] )->name('update.password.form');
+Route::post('/update-sales-password', [UserController::class, 'updatePassword'] )->name('update.password');
+// Route::post('/update-sales-password', )->name('update.password');
+
+
+
+
+
 
 // Route::get('/sales-report', [SalesReportController::class, 'showSalesReport']);
 Route::get('/sales-report', [SalesReportController::class, 'showSalesReport'])->name('sales-report');
