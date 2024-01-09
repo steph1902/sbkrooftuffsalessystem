@@ -27,8 +27,9 @@
                 <thead>
                     <tr>
                         {{-- <th>NIK</th> --}}
-                        <th>Nama</th>
+                        {{-- <th>Nama</th> --}}
                         <!-- Add more table headings for other attributes -->
+                        <th>E-mail</th>
                         <th>Cek Detail</th>
                         <th>Edit</th>
                         <th>Hapus</th>
@@ -38,7 +39,8 @@
                 <tfoot>
                     <tr>
                         {{-- <th>NIK</th> --}}
-                        <th>Nama</th>
+                        {{-- <th>Nama</th> --}}
+                        <th>E-mail</th>
                         <!-- Add more table headings for other attributes -->
                         <th>Cek Detail</th>
                         <th>Edit</th>
@@ -50,7 +52,8 @@
                     @foreach ($sales as $sale)
                     <tr>
                         {{-- <td>{{ $sale->nik }}</td> --}}
-                        <td>{{ $sale->name }}</td>
+                        {{-- <td>{{ $sale->name }}</td> --}}
+                        <td>{{ $sale->email }}</td>
                         <td>
                             <a href="{{ route('sales.show', $sale->id) }}">Lihat Detail</a>
                         </td>

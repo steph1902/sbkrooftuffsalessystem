@@ -7,6 +7,7 @@ use App\Models\Sales;
 use App\Models\User;
 use App\Models\Shop;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 
 
@@ -37,6 +38,7 @@ class SalesController extends Controller
         //
         $sales = User::all();
         // dd($)
+        // dd($sales);
         return view('sales.index', compact('sales'));
     }
 
@@ -62,22 +64,51 @@ class SalesController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'nik' => 'required',
+            // 'nik' => 'required',
             'nama' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'alamat_ktp' => 'required',
-            'alamat_domisili' => 'required',
+            // 'tempat_lahir' => 'required',
+            // 'tanggal_lahir' => 'required',
+            // 'alamat_ktp' => 'required',
+            // 'alamat_domisili' => 'required',
             'nomor_handphone' => 'required',
             'email' => 'required',
-            'username' => 'required',
+            // 'username' => 'required',
             'password' => 'required',
         ]);
 
-        Sales::create($validatedData);
+        // Encrypt password sebelum menyimpan
+    $validatedData['password'] = Crypt::encrypt($request->password);
 
-        return redirect()->route('sales.index')->with('success', 'Sales created successfully.');
+    // Simpan data
+    User::create($validatedData);
+
+
+
+        // User::create($validatedData);
+        // dd($validatedData);
+
+        return redirect()->route('sales.index')->with('success', 'Berhasil mendaftarkan sales baru.');
     }
+
+//     public function store(Request $request)
+// {
+//     $validatedData = $request->validate([
+//         'nama' => 'required',
+//         'nomor_handphone' => 'required',
+//         'email' => 'required',
+//         'password' => 'required',
+//     ]);
+
+//     // Encrypt password sebelum menyimpan
+//     $validatedData['password'] = Crypt::encrypt($request->password);
+
+//     // Simpan data
+//     User::create($validatedData);
+
+//     return redirect()->route('sales.index')->with('success', 'Berhasil mendaftarkan sales baru.');
+// }
+
+    
 
     /**
      * Display the specified resource.

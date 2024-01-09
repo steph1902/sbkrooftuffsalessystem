@@ -39,6 +39,30 @@ class VisitController extends Controller
 
     }
 
+    public function showVisitSuperadmin($id)
+    {
+        $visit = Visit::findOrFail($id);      
+
+        $visit = DB::table('sales_visit')
+        ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')            
+        ->where('sales_visit.id', $id)
+        ->select('sales_visit.*', 
+        'shop.shop_name', 
+        'shop.shop_address', 
+        'shop.provinsi', 
+        'shop.kota', 
+        'shop.kecamatan', 
+        'shop.kelurahan', 
+        'shop.shop_googlemaps_coord', 
+        'shop.shop_uuid')
+        ->first();
+
+        return view('owner.visitshow', compact('visit'));
+
+    }
+
+
+
     public function edit($id)
     {
         $visit = Visit::findOrFail($id);

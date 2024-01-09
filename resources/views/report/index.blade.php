@@ -19,7 +19,7 @@
 
 </style>
 
-
+{{-- 
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -30,12 +30,7 @@
                 <div class="card-body">
                     <form action="{{ route('report.index') }}" method="GET">
                         <div class="row">
-                            {{-- <div class="col-md-3">
-                                <input type="text" name="shop_name" class="form-control" placeholder="Shop Name" value="{{ request('shop_name') }}">
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" name="sales_name" class="form-control" placeholder="Sales Name" value="{{ request('sales_name') }}">
-                            </div> --}}
+                            
                             <div class="col-md-6">
                                 <input type="text" name="province" class="form-control" placeholder="Province" value="{{ request('province') }}">
                             </div>
@@ -48,7 +43,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <div class="container">
     <div class="row">
@@ -114,6 +109,7 @@
                                     {{-- <th>Shop Location (Coordinate)</th> --}}
                                     <th>Tanggal Kunjungan Terakhir</th>
                                     <th>Material Toko</th>
+                                    <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -192,6 +188,7 @@
                                     </td>                                     --}}
                                     <td>{{ \Carbon\Carbon::parse($report->created_at)->format('D, d M Y H:i') }}</td>
                                     <td>{{ $report->materials }}</td>
+                                    <td><a href="{{ route('visits.show', $report->id) }}">Cek Detail</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

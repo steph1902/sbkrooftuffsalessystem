@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.superadmin')
 
 @section('content')
     <h1>Sales Details</h1>
@@ -6,15 +6,15 @@
 
     <table class="table">
         <tbody>
-            <tr>
+            {{-- <tr>
                 <th>NIK:</th>
                 <td>{{ $sales->nik }}</td>
-            </tr>
+            </tr> --}}
             <tr>
                 <th>Nama:</th>
                 <td>{{ $sales->nama }}</td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <th>Tempat Lahir:</th>
                 <td>{{ $sales->tempat_lahir }}</td>
             </tr>
@@ -29,19 +29,19 @@
             <tr>
                 <th>Alamat Domisili:</th>
                 <td>{{ $sales->alamat_domisili }}</td>
-            </tr>
-            <tr>
+            </tr> --}}
+            {{-- <tr>
                 <th>Nomor Handphone:</th>
                 <td>{{ $sales->nomor_handphone }}</td>
-            </tr>
+            </tr> --}}
             <tr>
                 <th>E-mail:</th>
                 <td>{{ $sales->email }}</td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <th>Username:</th>
                 <td>{{ $sales->username }}</td>
-            </tr>
+            </tr> --}}
         </tbody>
     </table>
 @endsection

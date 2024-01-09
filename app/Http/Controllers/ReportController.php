@@ -124,7 +124,7 @@ class ReportController extends Controller
         $reportData = DB::table('sales_visit')
             ->join('shop', 'sales_visit.shop_id', '=', 'shop.id')
             ->join('users', 'users.id', '=', 'sales_visit.sales_id')
-            ->select('sales_visit.*', 'shop.*','users.*')
+            ->select('sales_visit.*', 'shop.*','users.*','sales_visit.id')
             ->when($request->filled('shop_name'), function ($query) use ($request) {
                 $query->where('shop.shop_name', 'like', '%' . $request->input('shop_name') . '%');
             })

@@ -67,6 +67,8 @@ Route::get('visits/{location}', [VisitController::class, 'show'])->name('visits.
 Route::get('visits/{id}/edit', [VisitController::class, 'edit'])->name('visits.edit');
 Route::put('visits/{id}', [VisitController::class, 'update'])->name('visits.update');
 
+Route::get('superadmin/visits/{location}', [VisitController::class, 'show'])->name('superadmin.visits.show');
+
 
 
 Route::get('visited-store-data}', [VisitController::class, 'showVisitedStoreData'])->name('visits.showVisitedStoreData');
